@@ -35,6 +35,21 @@ class student
 		percentage=((totalMarks/500)*100);
 		cout<<"Percentage is: "<<percentage<<" %"<<"\n\n";
 	}
+	
+	int insert_student_record_marks()
+	{
+		cout<<"Enter Your Marks:- \n\n";
+		cout<<"\nEnter Marks in Maths: ";
+		cin>>maths;
+		cout<<"\nEnter Marks in Physics: ";
+		cin>>physics;
+		cout<<"\nEnter Marks in Chemistry: ";
+		cin>>chemistry;
+		cout<<"\nEnter Marks in English: ";
+		cin>>english;
+		cout<<"\nEnter Marks in Hindi: ";
+		cin>>hindi;
+	}
 
 	void display_student_record()
 	{
@@ -47,8 +62,16 @@ class student
 		cout<<"Marks in Hindi is: "<<hindi<<"\n\n";
 		result_calculation();
 	}
+};
 
-	void home()
+int main()
+{
+	int student_count=0;
+	
+	student s[10];
+	
+	
+	do
 	{
 		int choice;
 		cout<<"\nPress the number for following options :-\n\n";
@@ -67,21 +90,95 @@ class student
 		switch(choice)
 		{
 			case 1:
-			cout<<"\nInsert Student Record:-\n\n";
-			insert_student_record();
+			if(student_count<2)
+			{
+				s[student_count].insert_student_record();
+				student_count++;
+			}
+			else
+			{	
+				cout<<"You can not insert more student record";
+				cout<<"\n\n";
+			}
 			break;
 
 			case 2:
-			cout<<"\nEdit Student Record:-\n\n";
+				int input_rollnumber;
+				cout<<"\nEnter Student Roll Number to Edit:-\n\n";
+				cin>>input_rollnumber;
+				int i;
+				
+				for(i=0;i<student_count;i++)
+				{
+					if(input_rollnumber==s[i].rollNum)
+					{
+						
+						cout<<"\nPress the option you want to change:-\n\n";
+
+						cout<<"(1).Edit Student Name\n\n";
+						cout<<"(2).Edit Student Marks\n\n";
+						int choice;
+						cout<<"Enter your choice: ";
+						cin>>choice;
+						system("cls");
+
+						switch(choice)
+						{
+							case 1:
+							cout<<"Enter New Student Name:-";
+							cin>>s[i].name;
+					
+							break;
+
+						case 2:
+							cout<<"Enter New Student Marks:-\n\n";
+							cout<<"\nEnter Marks in Maths: ";
+							cin>>s[i].maths;
+							cout<<"\nEnter Marks in Physics: ";
+							cin>>s[i].physics;
+							cout<<"\nEnter Marks in Chemistry: ";
+							cin>>s[i].chemistry;
+							cout<<"\nEnter Marks in English: ";
+							cin>>s[i].english;
+							cout<<"\nEnter Marks in Hindi: ";
+							cin>>s[i].hindi;
+							break;
+
+						default:
+							cout<<"Enter correct choice";
+							break;
+						}
+					}
+					
+		   		}
+				
 			break;
 
 			case 3:
 			cout<<"\nDisplay Student Record:-"<<"\n\n\n";
-			display_student_record();
+			
+			
+			int each_count;
+			for(each_count=0;each_count<student_count;each_count++)
+			{
+				s[each_count].display_student_record();
+			}
 			break;
 
 			case 4:
 			cout<<"\nSearch Student Record:-\n\n";
+			int rollNumber_id,object_search;
+			cout<<"Enter Student Roll Number: ";
+			cin>>rollNumber_id;
+			for(object_search=0;object_search<student_count;object_search++)
+			{
+				if(rollNumber_id==s[object_search].rollNum)
+				{
+					s[object_search].display_student_record();
+					break;
+				}
+				
+			}	
 			break;
 
 			case 5:
@@ -93,22 +190,8 @@ class student
 			cout<<"\nPlease enter correct choice!!!";
 			break;
 		}
-	}
-
-};
-
-int main()
-{
-	student s1;
-	do
-	{
-		s1.home();
 		cout<<"\n\n";
+		
 	}while(1);
-
-	s1.insert_student_record();
-	cout<<"\n\n";
-	s1.display_student_record();
-
 	return 0;
 }
